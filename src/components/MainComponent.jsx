@@ -1,6 +1,10 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import SongComponent from "./SongComponent";
+import { Container, Row, Col } from "react-bootstrap";
 
 const MainComponent = () => {
+  const searchResults = useSelector((state) => state.songs.searchResults);
+
   return (
     <Container>
       <Row>
@@ -18,10 +22,11 @@ const MainComponent = () => {
             <Col xs={10}>
               <div id="rock">
                 <h2>Rock Classics</h2>
-                <Row
-                  className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
-                  id="rockSection"
-                ></Row>
+                <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="rockSection">
+                  {searchResults.map((song) => (
+                    <SongComponent key={song.id} song={song} />
+                  ))}
+                </Row>
               </div>
             </Col>
           </Row>
@@ -29,10 +34,11 @@ const MainComponent = () => {
             <Col xs={10}>
               <div id="pop">
                 <h2>Pop Culture</h2>
-                <div
-                  className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
-                  id="popSection"
-                ></div>
+                <div className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="popSection">
+                  {searchResults.map((song) => (
+                    <SongComponent key={song.id} song={song} />
+                  ))}
+                </div>
               </div>
             </Col>
           </Row>
@@ -40,10 +46,11 @@ const MainComponent = () => {
             <Col xs={10}>
               <div id="hiphop">
                 <h2>#HipHop</h2>
-                <div
-                  className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
-                  id="hipHopSection"
-                ></div>
+                <div className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="hipHopSection">
+                  {searchResults.map((song) => (
+                    <SongComponent key={song.id} song={song} />
+                  ))}
+                </div>
               </div>
             </Col>
           </Row>

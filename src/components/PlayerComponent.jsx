@@ -1,7 +1,10 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const PlayerComponent = () => {
+  const currentSong = useSelector((state) => state.player.currentSong);
+
   return (
     <Container fluid className="fixed-bottom bg-container pt-1">
       <Row className="h-100">
@@ -27,6 +30,14 @@ const PlayerComponent = () => {
               </div>
               <div className="progress mt-3">
                 <div role="progressbar"></div>
+              </div>
+              <div>
+                {currentSong && (
+                  <div>
+                    <p>{currentSong.title}</p>
+                    <p>{currentSong.artist}</p>
+                  </div>
+                )}
               </div>
             </Col>
           </Row>

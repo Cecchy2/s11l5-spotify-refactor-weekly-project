@@ -1,7 +1,17 @@
-import { Button, Col, Container, Form, InputGroup, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { fetchSearchResults } from "../redux/actions/actions";
 
 const MySideBar = () => {
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchSearchResults(query));
+  };
+
   return (
     <Container fluid>
       <Row>
@@ -24,8 +34,10 @@ const MySideBar = () => {
                   aria-label="Example text with button addon"
                   aria-describedby="basic-addon1"
                   placeholder="Search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
-                <Button variant="outline-secondary" id="button-addon1">
+                <Button variant="outline-secondary" id="button-addon1" onClick={handleSearch}>
                   Go
                 </Button>
               </InputGroup>
