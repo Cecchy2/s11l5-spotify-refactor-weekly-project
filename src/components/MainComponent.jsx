@@ -23,7 +23,7 @@ const MainComponent = ({ initialGenre }) => {
       }
     };
 
-    fetchSearchResults("queen"); // Carica inizialmente il genere "rock"
+    fetchSearchResults("queen");
   }, [dispatch]);
 
   useEffect(() => {

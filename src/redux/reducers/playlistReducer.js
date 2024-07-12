@@ -1,29 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { ADD_SONG_TO_PLAYLIST, REMOVE_SONG_FROM_PLAYLIST } from "../actions/actions";
 
 const initialState = {
   playlists: {},
 };
 
-const playlistSlice = createSlice({
-  name: "playlists",
-  initialState,
-  reducers: {
-    addSongToPlaylist: (state, action) => {
+const playlistReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_SONG_TO_PLAYLIST: {
       const { playlistId, song } = action.payload;
-      if (!state.playlists[playlistId]) {
-        state.playlists[playlistId] = [];
-      }
-      state.playlists[playlistId].push(song);
-    },
-    removeSongFromPlaylist: (state, action) => {
+      return {
+        ...state,
+        playlists: {
+          ...state.playlists,
+          [playlistId]: state.playlists[playlistId] ? [...state.playlists[playlistId], song] : [song],
+        },
+      };
+    }
+    case REMOVE_SONG_FROM_PLAYLIST: {
       const { playlistId, songId } = action.payload;
-      if (state.playlists[playlistId]) {
-        state.playlists[playlistId] = state.playlists[playlistId].filter((song) => song.id !== songId);
-      }
-    },
-  },
-});
+      return {
+        ...state,
+        playlists: {
+          ...state.playlists,
+          [playlistId]: state.playlists[playlistId].filter((song) => song.id !== songId),
+        },
+      };
+    }
+    default:
+      return state;
+  }
+};
 
-export const { addSongToPlaylist, removeSongFromPlaylist } = playlistSlice.actions;
-
-export default playlistSlice.reducer;
+export default playlistReducer;
