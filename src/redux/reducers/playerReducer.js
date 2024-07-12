@@ -1,19 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+// playerReducer.js
+import { SET_CURRENT_SONG } from "../actions/actions";
 
 const initialState = {
   currentSong: null,
 };
 
-const playerSlice = createSlice({
-  name: "player",
-  initialState,
-  reducers: {
-    playSong: (state, action) => {
-      state.currentSong = action.payload;
-    },
-  },
-});
+const playerReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_CURRENT_SONG:
+      return {
+        ...state,
+        currentSong: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
-export const { playSong } = playerSlice.actions;
-
-export default playerSlice.reducer;
+export default playerReducer;

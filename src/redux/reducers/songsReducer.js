@@ -1,10 +1,17 @@
-// songsReducer.js
-import { LIKE_SONG, SET_SEARCH_RESULTS, SET_STATUS, SET_ERROR, SET_CURRENT_SONG } from "../actions/actions";
+import {
+  LIKE_SONG,
+  SET_SEARCH_RESULTS,
+  SET_STATUS,
+  SET_ERROR,
+  SET_CURRENT_SONG,
+  ADD_TO_LIBRARY,
+} from "../actions/actions";
 
 const initialState = {
   likedSongs: {},
   searchResults: [],
   currentSong: null,
+  library: [],
   status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
@@ -40,6 +47,11 @@ const songsReducer = (state = initialState, action) => {
       return {
         ...state,
         currentSong: action.payload,
+      };
+    case ADD_TO_LIBRARY:
+      return {
+        ...state,
+        library: [...state.library, action.payload],
       };
     default:
       return state;

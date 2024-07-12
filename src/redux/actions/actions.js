@@ -1,9 +1,9 @@
-// actions.js
 export const LIKE_SONG = "LIKE_SONG";
 export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS";
 export const SET_STATUS = "SET_STATUS";
 export const SET_ERROR = "SET_ERROR";
 export const SET_CURRENT_SONG = "SET_CURRENT_SONG";
+export const ADD_TO_LIBRARY = "ADD_TO_LIBRARY";
 
 export const likeSong = (song) => ({
   type: LIKE_SONG,
@@ -27,5 +27,10 @@ export const setError = (error) => ({
 
 export const setCurrentSong = (song) => ({
   type: SET_CURRENT_SONG,
+  payload: song,
+});
+
+export const addToLibrary = (song) => ({
+  type: ADD_TO_LIBRARY,
   payload: song,
 });

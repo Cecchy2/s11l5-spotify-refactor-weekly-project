@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setSearchResults, setStatus, setError } from "../redux/actions/actions";
+import { Link } from "react-router-dom";
 
 const MySideBar = () => {
   const [query, setQuery] = useState("");
@@ -34,8 +35,12 @@ const MySideBar = () => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="d-flex flex-column ">
-                  <Nav.Link href="#home">Home</Nav.Link>
-                  <Nav.Link href="#link">Your Library</Nav.Link>
+                  <Nav.Link as={Link} to="/">
+                    Home
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/library">
+                    Your Library
+                  </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
               <InputGroup className="mb-3 w-75" size="sm">

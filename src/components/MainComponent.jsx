@@ -28,7 +28,6 @@ const MainComponent = ({ initialGenre }) => {
 
   useEffect(() => {
     if (searchResults.length > 0) {
-      console.log(searchResults);
       setTitle(`Results for ${searchResults[0].artist.name}`);
     }
   }, [searchResults]);
