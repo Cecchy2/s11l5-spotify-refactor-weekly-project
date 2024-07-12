@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { fetchSearchResults } from "../redux/actions/actions";
+import { setSearchResults, setStatus, setError } from "../redux/actions/actions";
 
 const MySideBar = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    dispatch(fetchSearchResults(query));
+    dispatch(setStatus("loading"));
+    try {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`);
+      const data = await response.json();
+      dispatch(setSearchResults(data.data));
+      dispatch(setStatus("succeeded"));
+    } catch (error) {
+      dispatch(setError(error.toString()));
+      dispatch(setStatus("failed"));
+    }
   };
 
   return (

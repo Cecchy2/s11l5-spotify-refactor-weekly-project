@@ -1,14 +1,31 @@
-import { setSearchResults, setStatus, setError } from "../reducers/songsReducer";
+// actions.js
+export const LIKE_SONG = "LIKE_SONG";
+export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS";
+export const SET_STATUS = "SET_STATUS";
+export const SET_ERROR = "SET_ERROR";
+export const SET_CURRENT_SONG = "SET_CURRENT_SONG";
 
-export const fetchSearchResults = (query) => async (dispatch) => {
-  dispatch(setStatus("loading"));
-  try {
-    const response = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`);
-    const data = await response.json();
-    dispatch(setSearchResults(data.data));
-    dispatch(setStatus("succeeded"));
-  } catch (error) {
-    dispatch(setError(error.toString()));
-    dispatch(setStatus("failed"));
-  }
-};
+export const likeSong = (song) => ({
+  type: LIKE_SONG,
+  payload: song,
+});
+
+export const setSearchResults = (results) => ({
+  type: SET_SEARCH_RESULTS,
+  payload: results,
+});
+
+export const setStatus = (status) => ({
+  type: SET_STATUS,
+  payload: status,
+});
+
+export const setError = (error) => ({
+  type: SET_ERROR,
+  payload: error,
+});
+
+export const setCurrentSong = (song) => ({
+  type: SET_CURRENT_SONG,
+  payload: song,
+});

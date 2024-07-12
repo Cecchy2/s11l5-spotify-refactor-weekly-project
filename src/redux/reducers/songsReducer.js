@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+// songsReducer.js
+import { LIKE_SONG, SET_SEARCH_RESULTS, SET_STATUS, SET_ERROR, SET_CURRENT_SONG } from "../actions/actions";
 
 const initialState = {
   likedSongs: {},
@@ -8,29 +9,41 @@ const initialState = {
   error: null,
 };
 
-const songsSlice = createSlice({
-  name: "songs",
-  initialState,
-  reducers: {
-    likeSong: (state, action) => {
+const songsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LIKE_SONG: {
       const id = action.payload.id;
-      state.likedSongs[id] = !state.likedSongs[id];
-    },
-    setSearchResults: (state, action) => {
-      state.searchResults = action.payload;
-    },
-    setStatus: (state, action) => {
-      state.status = action.payload;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
-    setCurrentSong: (state, action) => {
-      state.currentSong = action.payload;
-    },
-  },
-});
+      return {
+        ...state,
+        likedSongs: {
+          ...state.likedSongs,
+          [id]: !state.likedSongs[id],
+        },
+      };
+    }
+    case SET_SEARCH_RESULTS:
+      return {
+        ...state,
+        searchResults: action.payload,
+      };
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.payload,
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case SET_CURRENT_SONG:
+      return {
+        ...state,
+        currentSong: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
-export const { likeSong, setSearchResults, setStatus, setError, setCurrentSong } = songsSlice.actions;
-
-export default songsSlice.reducer;
+export default songsReducer;

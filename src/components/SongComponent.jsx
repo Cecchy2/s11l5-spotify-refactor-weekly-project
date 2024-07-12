@@ -1,22 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { likeSong } from "../redux/reducers/songsReducer";
-import { playSong } from "../redux/reducers/playerReducer";
+import { likeSong, setCurrentSong } from "../redux/actions/actions";
 
 const SongComponent = ({ song }) => {
   const dispatch = useDispatch();
   const likedSongs = useSelector((state) => state.songs.likedSongs);
 
-  const handleLike = (e) => {
-    e.stopPropagation();
+  const handleLike = (event) => {
+    event.preventDefault();
+    event.stopPropagation(); // Previene la propagazione dell'evento
     dispatch(likeSong(song));
   };
 
   const handlePlay = () => {
-    dispatch(playSong(song));
+    dispatch(setCurrentSong(song));
   };
 
   return (
     <div className="song" onClick={handlePlay}>
+      <img className="img-fluid" src={song.album.cover_medium} alt="track" />
       <p>{song.title}</p>
       <button onClick={handleLike}>{likedSongs[song.id] ? "Unlike" : "Like"}</button>
     </div>
